@@ -1,5 +1,5 @@
 # MobileApp
-<p>Contriubutors<p>
-#Adam Niezgoda
-#Wojtek Strzelecki
-#Grupa czwartkowa, 15:15
+<br>Contriubutors<br>
+<br>Adam Niezgoda<br>
+<br>Wojtek Strzelecki<br>
+<br>Grupa czwartkowa, 15:15<br>
