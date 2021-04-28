@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.mobileapp.R
 
-
 class PlusFragment : Fragment() {
 
 

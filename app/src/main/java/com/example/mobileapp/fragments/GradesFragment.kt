@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.mobileapp.R
 
 class GradesFragment : Fragment() {
@@ -16,6 +17,7 @@ class GradesFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_grades, container, false)
     }
+
 
 
 }
