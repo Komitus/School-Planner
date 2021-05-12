@@ -1,4 +1,4 @@
-# MobileApp
+# School_Planner
 <br>Contriubutors<br>
 <br>Adam Niezgoda<br>
 <br>Wojtek Strzelecki<br>
