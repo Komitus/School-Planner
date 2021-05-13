@@ -11,32 +11,42 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.actitvities.EditPlanActivity
 import com.example.mobileapp.adapters.PlanAdapter
 import com.example.mobileapp.data.PlanDay
+import com.example.mobileapp.data.dataBase.GradeEntity
+import com.example.mobileapp.data.dataBase.PlannerDBViewModel
 import com.example.mobileapp.fragments.CourseFragment
 import com.example.mobileapp.fragments.GradesFragment
 import com.example.mobileapp.fragments.PlanFragment
 import com.example.mobileapp.fragments.PlusFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.time.DayOfWeek
+import java.time.LocalDateTime
 
 class MainActivity : AppCompatActivity() {
 
     lateinit var planAdapter: PlanAdapter
     lateinit var planManager : RecyclerView.LayoutManager
     lateinit var planRecyclerView: RecyclerView
+    lateinit var viewModelDatabase: PlannerDBViewModel
+
     var planComponents : ArrayList<PlanDay> = arrayListOf()
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        viewModelDatabase = PlannerDBViewModel(this.application)
 
+        val grade = GradeEntity(0, 1, "sprawdzian", LocalDateTime.now(), 1)
+        val grade1 = GradeEntity(0, 5, "sprawdzian", LocalDateTime.now(), 2)
+        val grade2 = GradeEntity(0, 6, "kart", LocalDateTime.now(), 2)
+        viewModelDatabase.addGrade(grade)
+        viewModelDatabase.addGrade(grade1)
+        viewModelDatabase.addGrade(grade2)
 
-        val gradesFragment = GradesFragment()
+        val gradesFragment = GradesFragment(this)
         val plusFragment = PlusFragment()
         val planFragment = PlanFragment()
         val courseFragment = CourseFragment()
+
 
         makeCurrentFragment(gradesFragment)
 
