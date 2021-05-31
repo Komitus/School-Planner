@@ -1,4 +1,4 @@
-package com.example.mobileapp.data.dataBase
+package com.example.mobileapp.data.dataBase.Grades
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

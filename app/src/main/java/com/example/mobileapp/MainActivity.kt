@@ -6,12 +6,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.actitvities.EditPlanActivity
 import com.example.mobileapp.adapters.PlanAdapter
 import com.example.mobileapp.data.PlanDay
-import com.example.mobileapp.data.dataBase.GradeEntity
+import com.example.mobileapp.data.dataBase.Grades.CourseEntity
+import com.example.mobileapp.data.dataBase.DBFactory
+import com.example.mobileapp.data.dataBase.Grades.GradeEntity
 import com.example.mobileapp.data.dataBase.PlannerDBViewModel
 import com.example.mobileapp.fragments.CourseFragment
 import com.example.mobileapp.fragments.GradesFragment
@@ -33,16 +35,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModelDatabase = PlannerDBViewModel(this.application)
+        viewModelDatabase = ViewModelProvider(this, DBFactory(this.application)).get(PlannerDBViewModel::class.java)
 
-        val grade = GradeEntity(0, 1, "sprawdzian", LocalDateTime.now(), 1)
-        val grade1 = GradeEntity(0, 5, "sprawdzian", LocalDateTime.now(), 2)
-        val grade2 = GradeEntity(0, 6, "kart", LocalDateTime.now(), 2)
-        viewModelDatabase.addGrade(grade)
-        viewModelDatabase.addGrade(grade1)
-        viewModelDatabase.addGrade(grade2)
+        val course1  = CourseEntity(0, "Język Polski")
+        val course2 = CourseEntity(0, "Matematyka")
+        val course3 = CourseEntity(0, "Fizyka")
+        viewModelDatabase.addCourse(course1)
+        viewModelDatabase.addCourse(course2)
+        viewModelDatabase.addCourse(course3)
 
-        val gradesFragment = GradesFragment(this)
+        val gradesFragment = GradesFragment(viewModelDatabase)
         val plusFragment = PlusFragment()
         val planFragment = PlanFragment()
         val courseFragment = CourseFragment()
@@ -90,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    public fun editDay(position: Int) {
+    fun editDay(position: Int) {
         val intent = Intent(this, EditPlanActivity::class.java)
         intent.putExtra("position", position)
         intent.putExtra("day", planComponents[position])

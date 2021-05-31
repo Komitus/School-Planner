@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.CourseFragment">
+    tools:context=".fragments.GradesFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/relativeLayout"
@@ -23,7 +23,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:onClick="addGrade"
             android:src="@android:drawable/ic_input_add"
             app:layout_constraintBottom_toBottomOf="@+id/gradeRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"

@@ -1,31 +1,44 @@
 package com.example.mobileapp.data.dataBase
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.mobileapp.data.dataBase.Grades.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class PlannerDBViewModel(application: Application) : AndroidViewModel(application) {
 
-    val gradesDAO : GradesDAO
+    val readAllGrades:  LiveData<List<GradeEntity>>
+    val readAllCourses: LiveData<List<CourseEntity>>
+    val repo: GradesRepo
 
     init{
-        gradesDAO = PlannerDatabase.getDatabase(application).gradeDao()
+        val gradesDAO = PlannerDatabase.getDatabase(application).gradeDao()
+        repo = GradesRepo(gradesDAO)
+        readAllGrades = repo.readAllGrades
+        readAllCourses = repo.readAllCourses
     }
-    fun readLastGrades() : LiveData<List<Int>>?{
 
-        var toRet : LiveData<List<Int>>? = null
+    fun addCourse(course: CourseEntity){
         viewModelScope.launch(Dispatchers.IO){
-            toRet = gradesDAO.readLastGradesForCourse()
+            repo.addCourse(course)
         }
-        return toRet
     }
-    fun addGrade(grade : GradeEntity){
 
+    fun addGrade(grade: GradeEntity){
         viewModelScope.launch(Dispatchers.IO){
-            gradesDAO.addGrade(grade)
+            repo.addGrade(grade)
         }
+    }
+
+
+}
+
+@Suppress("UNCHECKED_CAST")
+class DBFactory(private val app: Application) : ViewModelProvider.NewInstanceFactory()
+{
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T
+    {
+        return PlannerDBViewModel(app) as T
     }
 }

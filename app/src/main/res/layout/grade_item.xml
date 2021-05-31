@@ -38,7 +38,6 @@
             android:layout_height="match_parent"
             android:background="#7C8CE6"
             android:contentDescription="last grades"
-            android:text="last grades"
             android:textSize="28sp" />
     </LinearLayout>
 </LinearLayout>
