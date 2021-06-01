@@ -1,4 +1,4 @@
-package com.example.mobileapp.data.dataBase.Grades
+package com.example.mobileapp.data.Entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,5 +7,6 @@ import androidx.room.PrimaryKey
 data class CourseEntity (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val name: String
+    val name: String,
+    val abbreviation: String
 )

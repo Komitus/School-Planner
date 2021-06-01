@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileApp">
-        <activity android:name=".actitvities.AddGradeActivity"></activity>
+        <activity android:name=".actitvities.GradesDetailsActivity"></activity>
         <activity android:name=".actitvities.EditPlanActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

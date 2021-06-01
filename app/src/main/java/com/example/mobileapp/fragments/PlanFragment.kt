@@ -1,16 +1,15 @@
 package com.example.mobileapp.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobileapp.MainActivity
 import com.example.mobileapp.R
 import com.example.mobileapp.adapters.PlanAdapter
-import com.example.mobileapp.data.PlanDay
+import com.example.mobileapp.data.Entities.PlanDay
 import java.time.DayOfWeek
 
 class PlanFragment : Fragment() {
@@ -39,7 +38,7 @@ class PlanFragment : Fragment() {
         planComponents.add(day)
 
         planManager = LinearLayoutManager(container?.context)
-        planAdapter = PlanAdapter(planComponents, this)
+        planAdapter = PlanAdapter(planComponents)
         planRecyclerView = rootView.findViewById<RecyclerView>(R.id.planRecyclerView)?.apply {
             setHasFixedSize(true)
             layoutManager = planManager

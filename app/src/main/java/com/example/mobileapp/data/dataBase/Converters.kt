@@ -1,21 +1,21 @@
 package com.example.mobileapp.data.dataBase
 
 import androidx.room.TypeConverter
-import com.example.mobileapp.data.dataBase.Grades.CourseEntity
-import java.time.LocalDateTime
+import com.example.mobileapp.data.Entities.CourseEntity
+import java.time.LocalDate
 
 class Converters {
     @TypeConverter
-    fun toDate(dateString: String?): LocalDateTime? {
+    fun toDate(dateString: String?): LocalDate? {
         return if (dateString == null) {
             null
         } else {
-            LocalDateTime.parse(dateString)
+            LocalDate.parse(dateString)
         }
     }
 
     @TypeConverter
-    fun toDateString(date: LocalDateTime?): String? {
+    fun toDateString(date: LocalDate?): String? {
         return date?.toString()
     }
 

@@ -23,7 +23,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:clickable="true"
-            android:onClick="addCourse"
             android:src="@android:drawable/ic_input_add"
             app:layout_constraintBottom_toBottomOf="@+id/courseRecyclerView"
             app:layout_constraintEnd_toEndOf="parent"

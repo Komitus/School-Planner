@@ -1,4 +1,4 @@
-package com.example.mobileapp.data
+package com.example.mobileapp.data.Entities
 
 import java.io.Serializable
 import java.time.DayOfWeek

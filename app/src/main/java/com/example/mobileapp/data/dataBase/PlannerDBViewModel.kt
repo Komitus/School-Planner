@@ -2,7 +2,8 @@ package com.example.mobileapp.data.dataBase
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.mobileapp.data.dataBase.Grades.*
+import com.example.mobileapp.data.Entities.CourseEntity
+import com.example.mobileapp.data.Entities.GradeEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -10,11 +11,11 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
 
     val readAllGrades:  LiveData<List<GradeEntity>>
     val readAllCourses: LiveData<List<CourseEntity>>
-    val repo: GradesRepo
+    val repo: DatabaseRepo
 
     init{
         val gradesDAO = PlannerDatabase.getDatabase(application).gradeDao()
-        repo = GradesRepo(gradesDAO)
+        repo = DatabaseRepo(gradesDAO)
         readAllGrades = repo.readAllGrades
         readAllCourses = repo.readAllCourses
     }

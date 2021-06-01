@@ -1,12 +1,14 @@
-package com.example.mobileapp.data.dataBase.Grades
+package com.example.mobileapp.data.dataBase
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import com.example.mobileapp.data.Entities.CourseEntity
+import com.example.mobileapp.data.Entities.GradeEntity
 
 @Dao
-interface GradesDAO {
+interface DatabseDAO {
 
     @Insert
     fun addGrade(grade : GradeEntity)

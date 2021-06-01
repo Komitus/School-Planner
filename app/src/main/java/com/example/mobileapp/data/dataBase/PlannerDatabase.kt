@@ -5,15 +5,14 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.mobileapp.data.dataBase.Grades.CourseEntity
-import com.example.mobileapp.data.dataBase.Grades.GradeEntity
-import com.example.mobileapp.data.dataBase.Grades.GradesDAO
+import com.example.mobileapp.data.Entities.CourseEntity
+import com.example.mobileapp.data.Entities.GradeEntity
 
 @Database(entities = [GradeEntity::class, CourseEntity::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class PlannerDatabase : RoomDatabase() {
 
-    abstract fun gradeDao() : GradesDAO
+    abstract fun gradeDao() : DatabseDAO
 
     companion object{
         @Volatile
