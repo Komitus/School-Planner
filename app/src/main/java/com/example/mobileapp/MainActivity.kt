@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.mobileapp.data.Entities.CourseEntity
 import com.example.mobileapp.data.Entities.GradeEntity
+import com.example.mobileapp.data.Entities.LessonEntity
 import com.example.mobileapp.data.dataBase.DBFactory
 import com.example.mobileapp.data.dataBase.PlannerDBViewModel
 import com.example.mobileapp.fragments.CourseFragment
@@ -29,6 +30,10 @@ class MainActivity : AppCompatActivity() {
 
         viewModelDatabase.addCourse(CourseEntity(0, "Polski", "JP"))
         viewModelDatabase.addGrade(GradeEntity(0, 5, "kartkówka", LocalDate.now(), 1))
+        viewModelDatabase.addLesson(LessonEntity(1, "polak", 6))
+        viewModelDatabase.addLesson(LessonEntity(3, "polak", 7))
+        viewModelDatabase.addLesson(LessonEntity(3, "religia", 8))
+        viewModelDatabase.addLesson(LessonEntity(5, "majca", 2))
 
         val gradesFragment = GradesFragment()
         val plusFragment = PlusFragment()
