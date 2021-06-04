@@ -45,7 +45,6 @@ class PlanAdapter(private val context : MainActivity) : RecyclerView.Adapter<Pla
             holder.binding.sixthLessonTextView.text = day.lessons[5]?.courseName ?: "----"
             holder.binding.seventhLessonTextView.text = day.lessons[6]?.courseName ?: "----"
             holder.binding.eighthLessonTextView.text = day.lessons[7]?.courseName ?: "----"
-
     }
 
 
