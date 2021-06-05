@@ -40,4 +40,14 @@ class Converters {
         }
         return DayOfWeek.MONDAY
     }
+
+    @TypeConverter
+    fun StringDayToInt(value : String) : Int {
+        for (day in DayOfWeek.values()) {
+            if (day.toString() == value) {
+                return day.value
+            }
+        }
+        return DayOfWeek.MONDAY.value
+    }
 }

@@ -17,6 +17,9 @@ import com.example.mobileapp.R
 import com.example.mobileapp.actitvities.AddCourseActivity
 import com.example.mobileapp.adapters.CourseAdapter
 import com.example.mobileapp.data.Entities.CourseEntity
+import com.example.mobileapp.data.Entities.LessonEntity
+import com.example.mobileapp.data.ScheduleItem
+import com.example.mobileapp.data.dataBase.Converters
 import com.example.mobileapp.toasts.ToastMaker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import www.sanju.motiontoast.MotionToast
@@ -28,6 +31,7 @@ class CourseFragment : Fragment() {
     private lateinit var courseManager : RecyclerView.LayoutManager
     private lateinit var courseRecyclerView: RecyclerView
     private lateinit var addButton : FloatingActionButton
+    val converters = Converters()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -63,15 +67,14 @@ class CourseFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
+        Log.d("am2021", "jestem")
         if (requestCode == 1 && data != null) {
                 val name = data.getStringExtra("courseName")
-                val abb = name?.substring(0, 1)
+                val abb = name?.substring(0, 2)
                 Log.d("am2021", "$name $abb")
-                abb?.let { CourseEntity(0, name, it) }?.let { context.viewModelDatabase.addCourse(it) }
+                abb?.let { CourseEntity(0, name, it, 0, "") }?.let { context.viewModelDatabase.addCourse(it) }
                 ToastMaker.makeSuccessToast(context, "Course is added")
-        } else {
-            Log.d("am2021", "data null")
         }
+
     }
 }

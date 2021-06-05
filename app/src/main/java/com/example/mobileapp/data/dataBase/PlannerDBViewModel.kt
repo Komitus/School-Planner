@@ -45,6 +45,17 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
     }
 
 
+    fun deleteOld(courseName : String) {
+        viewModelScope.launch(Dispatchers.IO){
+            repo.deleteOld(courseName)
+        }
+    }
+
+    fun deleteOldLessons(day: Int, lesson: Int) {
+        viewModelScope.launch(Dispatchers.IO){
+            repo.deleteOldLessons(day, lesson)
+        }
+    }
 
 
 }

@@ -27,6 +27,13 @@ class DatabaseRepo(private val databseDAO: DatabseDAO) {
         databseDAO.addNew(lessonEntity)
     }
 
+    suspend fun deleteOld(courseName : String) {
+        databseDAO.deleteOld(courseName)
+    }
+
+    suspend fun deleteOldLessons(day: Int, lesson: Int) {
+        databseDAO.deleteOldLessons(day, lesson)
+    }
 
 
 }

@@ -8,5 +8,7 @@ data class CourseEntity (
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val name: String,
-    val abbreviation: String
+    val abbreviation: String,
+    val howMany : Int,
+    val teacher : String
 )

@@ -26,17 +26,17 @@ class CourseAdapter(private val context: MainActivity) : RecyclerView.Adapter<Co
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d("am2021", "siema")
         holder.binding.courseAbbreviation.text = courses[position].abbreviation
         holder.binding.courseName.text = courses[position].name
 
         holder.itemView.setOnClickListener {
             val intent = Intent(context, EditCourseActivity::class.java)
             intent.putExtra("courseName", courses[position].name)
-            intent.putExtra("abbreviation", courses[position].abbreviation)
-            intent.putExtra("id", courses[position].id)
-            context.startActivity(intent)
+            intent.putExtra("teacher", courses[position].teacher)
+            intent.putExtra("howMany", courses[position].howMany)
+            context.startActivityForResult(intent, 123)
         }
+
     }
 
 
@@ -47,6 +47,7 @@ class CourseAdapter(private val context: MainActivity) : RecyclerView.Adapter<Co
         }
         notifyDataSetChanged()
     }
+
 
 
 

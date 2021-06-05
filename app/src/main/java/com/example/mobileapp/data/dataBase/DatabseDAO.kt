@@ -41,4 +41,11 @@ interface DatabseDAO {
     @Insert
     fun addNew(lesson: LessonEntity)
 
+    @Query("DELETE FROM courses_table WHERE name = :name")
+    fun deleteOld(name: String)
+
+    @Query("DELETE FROM lessons_table WHERE dayOfWeek = :day AND lessonNumber = :lesson")
+    fun deleteOldLessons(day : Int, lesson : Int)
+
+
 }
