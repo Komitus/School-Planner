@@ -67,13 +67,33 @@ class CourseFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d("am2021", "jestem")
         if (requestCode == 1 && data != null) {
                 val name = data.getStringExtra("courseName")
                 val abb = name?.substring(0, 2)
-                Log.d("am2021", "$name $abb")
-                abb?.let { CourseEntity(0, name, it, 0, "") }?.let { context.viewModelDatabase.addCourse(it) }
+                if (name != null) {
+                    context.viewModelDatabase.deleteOld(name)
+                }
+                val teacher = data.getStringExtra("teacher")
+                val pluses = data.getIntExtra("pluses", 0)
+                if (teacher != null) {
+                    abb?.let { CourseEntity(0, name, it, pluses, teacher) }?.let { context.viewModelDatabase.addCourse(it) }
+                }
                 ToastMaker.makeSuccessToast(context, "Course is added")
+
+                val courseSchedules = data.getSerializableExtra("schedule")
+                Log.d("am2021", courseSchedules.toString())
+
+                for (schedule in courseSchedules as ArrayList<ScheduleItem>) {
+                    context.viewModelDatabase.deleteOldLessons(converters.StringDayToInt(schedule.day), schedule.lesson.toInt())
+                }
+
+                for (schedule in courseSchedules) {
+                    val lessonEntity = name?.let { LessonEntity(converters.StringDayToInt(schedule.day), it, schedule.lesson.toInt()) }
+                    if (lessonEntity != null) {
+                        context.viewModelDatabase.addLesson(lessonEntity)
+                    }
+                }
+
         }
 
     }

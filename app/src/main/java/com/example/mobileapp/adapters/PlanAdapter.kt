@@ -1,12 +1,9 @@
 package com.example.mobileapp.adapters
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.MainActivity
-import com.example.mobileapp.actitvities.EditDayActivity
-import com.example.mobileapp.actitvities.GradesDetailsActivity
 import com.example.mobileapp.data.Entities.LessonEntity
 import com.example.mobileapp.data.Entities.PlanDay
 import com.example.mobileapp.data.dataBase.Converters
