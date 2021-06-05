@@ -9,30 +9,30 @@ import com.example.mobileapp.data.Entities.PlanDay
 import java.text.FieldPosition
 import java.time.DayOfWeek
 
-class DatabaseRepo(private val databseDAO: DatabseDAO) {
+class DatabaseRepo(private val databaseDAO: DatabseDAO) {
 
-    val readAllGrades: LiveData<List<GradeEntity>> = databseDAO.readAllGrades()
-    val readAllCourses: LiveData<List<CourseEntity>> = databseDAO.readAllCourses()
-    val readAllLessons: LiveData<List<LessonEntity>> = databseDAO.readAllLessons()
+    val readAllGrades: LiveData<List<GradeEntity>> = databaseDAO.readAllGrades()
+    val readAllCourses: LiveData<List<CourseEntity>> = databaseDAO.readAllCourses()
+    val readAllLessons: LiveData<List<LessonEntity>> = databaseDAO.readAllLessons()
 
     suspend fun addGrade(gradeEntity: GradeEntity){
-        databseDAO.addGrade(gradeEntity)
+        databaseDAO.addGrade(gradeEntity)
     }
 
     suspend fun addCourse(courseEntity: CourseEntity){
-        databseDAO.addCourse(courseEntity)
+        databaseDAO.addCourse(courseEntity)
     }
 
     suspend fun addLesson(lessonEntity: LessonEntity) {
-        databseDAO.addNew(lessonEntity)
+        databaseDAO.addNew(lessonEntity)
     }
 
     suspend fun deleteOld(courseName : String) {
-        databseDAO.deleteOld(courseName)
+        databaseDAO.deleteOld(courseName)
     }
 
     suspend fun deleteOldLessons(day: Int, lesson: Int) {
-        databseDAO.deleteOldLessons(day, lesson)
+        databaseDAO.deleteOldLessons(day, lesson)
     }
 
 

@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.mobileapp.data.Constants
 import com.example.mobileapp.data.Entities.CourseEntity
 import com.example.mobileapp.data.Entities.GradeEntity
 import com.example.mobileapp.data.Entities.LessonEntity
@@ -33,13 +34,14 @@ class MainActivity : AppCompatActivity() {
         viewModelDatabase = ViewModelProvider(this.viewModelStore,
             DBFactory(this.application)).get(PlannerDBViewModel::class.java)
 
-
-      /*  viewModelDatabase.addCourse(CourseEntity(0, "Polski", "JP"))
+        /*
+        viewModelDatabase.addCourse(CourseEntity(0, "Polski", "JP"))
         viewModelDatabase.addGrade(GradeEntity(0, 5, "kartkówka", LocalDate.now(), 1))
         viewModelDatabase.addLesson(LessonEntity(1, "polak", 6))
         viewModelDatabase.addLesson(LessonEntity(3, "polak", 7))
         viewModelDatabase.addLesson(LessonEntity(3, "religia", 8))
-        viewModelDatabase.addLesson(LessonEntity(5, "majca", 2))*/
+        viewModelDatabase.addLesson(LessonEntity(5, "majca", 2))
+        */
 
         val gradesFragment = GradesFragment()
         val plusFragment = PlusFragment()
@@ -51,10 +53,10 @@ class MainActivity : AppCompatActivity() {
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottom_navigation)
         bottomNavigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.ic_oceny -> makeCurrentFragment(GradesFragment())
+                R.id.ic_oceny -> makeCurrentFragment(gradesFragment)
                 R.id.ic_plan -> makeCurrentFragment(planFragment)
                 R.id.ic_plus -> makeCurrentFragment(plusFragment)
-                R.id.ic_przedmioty -> makeCurrentFragment(CourseFragment())
+                R.id.ic_przedmioty -> makeCurrentFragment(courseFragment)
             }
             true
         }
@@ -98,4 +100,6 @@ class MainActivity : AppCompatActivity() {
 
         }
     }
+
+
 }

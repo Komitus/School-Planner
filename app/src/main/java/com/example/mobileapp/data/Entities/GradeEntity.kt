@@ -11,7 +11,7 @@ data class GradeEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     val value: Int? = null,
-    val category:String? = null,
+    val category: String? = null,
     val date : LocalDate? = null,
     val course : Int? = null
 ) : Serializable

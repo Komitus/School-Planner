@@ -1,15 +1,13 @@
 package com.example.mobileapp.data.dataBase
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.example.mobileapp.data.Entities.CourseEntity
 import com.example.mobileapp.data.Entities.GradeEntity
 import com.example.mobileapp.data.Entities.LessonEntity
-import com.example.mobileapp.data.Entities.PlanDay
-import java.time.DayOfWeek
+import java.nio.file.Files.delete
+import java.time.LocalDate
+
 
 @Dao
 interface DatabseDAO {
@@ -22,6 +20,9 @@ interface DatabseDAO {
     //"SELECT value FROM grades_table WHERE course = :courseName ORDER BY date DESC LIMIT 4 "
     @Query("SELECT * FROM grades_table")
     fun readAllGrades() : LiveData<List<GradeEntity>>
+
+    @Query("SELECT * FROM grades_table WHERE course = :courseId")
+    fun readGradesForCourse(courseId: Int) : LiveData<List<GradeEntity>>
 
     @Query("SELECT * FROM courses_table")
     fun readAllCourses(): LiveData<List<CourseEntity>>
@@ -47,5 +48,17 @@ interface DatabseDAO {
     @Query("DELETE FROM lessons_table WHERE dayOfWeek = :day AND lessonNumber = :lesson")
     fun deleteOldLessons(day : Int, lesson : Int)
 
+    @Query("UPDATE grades_table SET value = :value, category = :category, date = :date WHERE id = :gradeId")
+    fun updateGrade(gradeId: Int, value: Int, category: String, date: LocalDate)
+
+    @Query("DELETE FROM grades_table WHERE id = :gradeId")
+    fun removeSelectedGrade(gradeId: Int)
+
+    @Transaction
+    fun removeAllSelectedGrades(selectedGradesIds: List<Int>) {
+        for(idx in selectedGradesIds){
+            removeSelectedGrade(idx)
+        }
+    }
 
 }

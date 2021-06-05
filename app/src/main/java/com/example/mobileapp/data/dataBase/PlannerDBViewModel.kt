@@ -17,8 +17,8 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
     private val repo: DatabaseRepo
 
     init{
-        val gradesDAO = PlannerDatabase.getDatabase(application).gradeDao()
-        repo = DatabaseRepo(gradesDAO)
+        val databaseDAO = PlannerDatabase.getDatabase(application).databaseDAO()
+        repo = DatabaseRepo(databaseDAO)
         readAllGrades = repo.readAllGrades
         readAllCourses = repo.readAllCourses
         readAllLessons = repo.readAllLessons

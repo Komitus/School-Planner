@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.MainActivity
 import com.example.mobileapp.actitvities.GradesDetailsActivity
+import com.example.mobileapp.data.Constants
 import com.example.mobileapp.data.Entities.CourseEntity
 import com.example.mobileapp.data.Entities.GradeEntity
 import com.example.mobileapp.databinding.GradesForCourseRowBinding
@@ -31,7 +32,7 @@ class GradesAdapter(private val context: MainActivity) : RecyclerView.Adapter<Gr
         holder.itemView.setOnClickListener {
             val gradesDetailIntent = Intent(context, GradesDetailsActivity::class.java)
             gradesDetailIntent.putExtra("courseName", grades[position].first.name)
-            gradesDetailIntent.putExtra("grades", grades[position].second)
+            gradesDetailIntent.putExtra("courseId", grades[position].first.id)
             context.startActivity(gradesDetailIntent)
         }
 

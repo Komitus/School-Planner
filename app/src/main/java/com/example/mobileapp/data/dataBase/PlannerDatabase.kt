@@ -14,7 +14,7 @@ import com.example.mobileapp.data.Entities.PlanDay
 @TypeConverters(Converters::class)
 abstract class PlannerDatabase : RoomDatabase() {
 
-    abstract fun gradeDao() : DatabseDAO
+    abstract fun databaseDAO() : DatabseDAO
 
     companion object{
         @Volatile
