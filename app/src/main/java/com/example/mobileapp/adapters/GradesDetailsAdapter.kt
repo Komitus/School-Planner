@@ -60,6 +60,8 @@ class GradesDetailsAdapter(private val context: GradesDetailsActivity) : Recycle
         for(index in selected){
             toRet.add(grades[index].id)
         }
+        selected.clear()
+        selected.trimToSize()
         return  toRet.toList()
     }
 
