@@ -75,24 +75,27 @@ class MainActivity : AppCompatActivity() {
             Log.d("am2021", "Doszlo")
             val courseName = data.getStringExtra("courseName")
             if (courseName != null) {
-                viewModelDatabase.deleteOld(courseName)
                 val teacher = data.getStringExtra("teacher")
                 val pluses = data.getIntExtra("pluses", 0)
-                val courseEntity = teacher?.let { CourseEntity(0, courseName, courseName.substring(0, 1), pluses, it) }
-                if (courseEntity != null) {
-                    viewModelDatabase.addCourse(courseEntity)
+                if (teacher != null) {
+                    viewModelDatabase.updateCourse(courseName, pluses, teacher)
                 }
 
                 val courseSchedules = data.getSerializableExtra("schedule")
                 Log.d("am2021", courseSchedules.toString())
 
                 for (schedule in courseSchedules as ArrayList<ScheduleItem>) {
-                    viewModelDatabase.deleteOldLessons(converters.StringDayToInt(schedule.day), schedule.lesson.toInt())
+                    viewModelDatabase.updateLesson(courseName, converters.StringDayToInt(schedule.day), schedule.lesson.toInt())
                 }
 
-                for (schedule in courseSchedules) {
-                    val lessonEntity = LessonEntity(converters.StringDayToInt(schedule.day), courseName, schedule.lesson.toInt())
-                    viewModelDatabase.addLesson(lessonEntity)
+                val courseSchedulesToAdd = data.getSerializableExtra("scheduleToAdd")
+                for (schedule in courseSchedulesToAdd as ArrayList<ScheduleItem>) {
+                    viewModelDatabase.addLesson(LessonEntity(converters.StringDayToInt(schedule.day), courseName, schedule.lesson.toInt()))
+                }
+
+                val courseSchedulesToDelete = data.getSerializableExtra("scheduleToDelete")
+                for (schedule in courseSchedulesToDelete as ArrayList<ScheduleItem>) {
+                    viewModelDatabase.deleteLesson(schedule.lesson.toInt(), converters.StringDayToInt(schedule.day))
                 }
                 ToastMaker.makeSuccessToast(this, "Changes saved")
             }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -81,6 +82,7 @@ class GradesDetailsActivity : AppCompatActivity() {
 
     fun removeSelected(view: View){
         viewModelDatabase.removeSelectedGrades(adapter.getSelectedGradesIds())
+        view.isVisible = false
     }
 
 

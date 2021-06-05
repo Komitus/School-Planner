@@ -57,6 +57,29 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    fun deleteAllCourseInfo(courseName: String, courseId: Int) {
+        viewModelScope.launch(Dispatchers.IO){
+            repo.deleteCourseInfo(courseName, courseId)
+        }
+    }
+
+    fun updateLesson(course: String, day: Int, lessonNumber: Int) {
+        viewModelScope.launch(Dispatchers.IO){
+            repo.updateLesson(course, day, lessonNumber)
+        }
+    }
+
+    fun updateCourse(name: String, pluses: Int, teacher: String) {
+        viewModelScope.launch(Dispatchers.IO){
+            repo.updateCourse(name, pluses, teacher)
+        }
+    }
+
+    fun deleteLesson(lessonNumber: Int, day: Int) {
+        viewModelScope.launch(Dispatchers.IO){
+            repo.deleteLesson(day, lessonNumber)
+        }
+    }
 
 }
 

@@ -31,7 +31,7 @@ class CourseFragment : Fragment() {
     private lateinit var courseManager : RecyclerView.LayoutManager
     private lateinit var courseRecyclerView: RecyclerView
     private lateinit var addButton : FloatingActionButton
-    val converters = Converters()
+    private val converters = Converters()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -84,13 +84,15 @@ class CourseFragment : Fragment() {
                 Log.d("am2021", courseSchedules.toString())
 
                 for (schedule in courseSchedules as ArrayList<ScheduleItem>) {
-                    context.viewModelDatabase.deleteOldLessons(converters.StringDayToInt(schedule.day), schedule.lesson.toInt())
+                    if (name != null) {
+                        context.viewModelDatabase.updateLesson(name, converters.StringDayToInt(schedule.day), schedule.lesson.toInt())
+                    }
                 }
 
-                for (schedule in courseSchedules) {
-                    val lessonEntity = name?.let { LessonEntity(converters.StringDayToInt(schedule.day), it, schedule.lesson.toInt()) }
-                    if (lessonEntity != null) {
-                        context.viewModelDatabase.addLesson(lessonEntity)
+                val courseSchedulesToAdd = data.getSerializableExtra("scheduleToAdd")
+                for (schedule in courseSchedulesToAdd as ArrayList<ScheduleItem>) {
+                    if (name != null) {
+                        context.viewModelDatabase.addLesson(LessonEntity(converters.StringDayToInt(schedule.day), name, schedule.lesson.toInt()))
                     }
                 }
 

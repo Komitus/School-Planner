@@ -29,4 +29,13 @@ object ToastMaker {
             MotionToast.LONG_DURATION,
             ResourcesCompat.getFont(context, R.font.helvetica_regular))
     }
+
+    public fun makeInfoToast(context: Activity, message: String) {
+        MotionToast.darkColorToast(context,"Warning",
+                message,
+                MotionToast.TOAST_INFO,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.LONG_DURATION,
+                ResourcesCompat.getFont(context,R.font.helvetica_regular))
+    }
 }

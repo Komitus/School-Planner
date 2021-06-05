@@ -9,6 +9,7 @@ import java.nio.file.Files.delete
 import java.time.LocalDate
 
 
+
 @Dao
 interface DatabseDAO {
 
@@ -36,9 +37,6 @@ interface DatabseDAO {
     @Delete
     fun deletePrev(lesson: LessonEntity)
 
-    @Query("SELECT COUNT(*) FROM lessons_table")
-    fun isFirstTime() : Int
-
     @Insert
     fun addNew(lesson: LessonEntity)
 
@@ -51,6 +49,15 @@ interface DatabseDAO {
     @Query("UPDATE grades_table SET value = :value, category = :category, date = :date WHERE id = :gradeId")
     fun updateGrade(gradeId: Int, value: Int, category: String, date: LocalDate)
 
+    @Query("UPDATE lessons_table SET courseName = :course WHERE dayOfWeek = :day AND lessonNumber = :lessonNumber")
+    fun updateLesson(course: String, day: Int, lessonNumber: Int)
+
+    @Query("UPDATE courses_table SET howMany = :pluses AND teacher = :teacher WHERE name = :name")
+    fun updateCourse(name: String, pluses: Int, teacher: String)
+
+    @Query("DELETE FROM lessons_table WHERE lessonNumber = :lessonNumber AND dayOfWeek = :day")
+    fun deleteLesson(lessonNumber: Int, day: Int)
+
     @Query("DELETE FROM grades_table WHERE id = :gradeId")
     fun removeSelectedGrade(gradeId: Int)
 
@@ -59,6 +66,19 @@ interface DatabseDAO {
         for(idx in selectedGradesIds){
             removeSelectedGrade(idx)
         }
+    }
+
+    @Query("DELETE FROM lessons_table WHERE courseName = :name")
+    fun deleteLessonsByCourse(name: String)
+
+    @Query("DELETE FROM grades_table WHERE course = :courseId")
+    fun deleteGradesByCourse(courseId: Int)
+
+    @Transaction
+    fun deleteAllCourseInfo(courseName: String, courseId: Int) {
+        deleteLessonsByCourse(courseName)
+        deleteGradesByCourse(courseId)
+        deleteOld(courseName)
     }
 
 }
