@@ -66,7 +66,7 @@ class PlanFragment : Fragment() {
 
     private fun addSub(){
         val allCourses = context.viewModelDatabase.readAllCourses.value
-        if(allCourses!= null){
+        if(allCourses!= null && allCourses.isNotEmpty()){
             val intent = Intent(context, AddSubActivity::class.java)
             val list = arrayListOf<String>()
             for(item in allCourses){

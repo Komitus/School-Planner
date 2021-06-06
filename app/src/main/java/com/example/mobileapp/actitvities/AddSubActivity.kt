@@ -13,6 +13,7 @@ import android.widget.TextView
 import com.example.mobileapp.R
 import com.example.mobileapp.data.Entities.SubstitutionEntity
 import com.example.mobileapp.databinding.ActivityAddSubBinding
+import com.example.mobileapp.toasts.ToastMaker
 import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
@@ -76,15 +77,20 @@ class AddSubActivity : AppCompatActivity() {
     }
 
     fun onSubmitClick(view: View){
+        val day = dateForReturn.dayOfWeek.value
+        if(day != 7 && day != 6){
+            val returnIntent = Intent()
+            val retVal = SubstitutionEntity(0, day,
+                binding.courseSubSpinner.selectedItem.toString(),
+                binding.lessonNumbSpinner.selectedItem.toString().toInt(),
+                dateForReturn
+            )
+            returnIntent.putExtra("subst", retVal)
+            setResult(Activity.RESULT_OK, returnIntent)
+            finish()
+        } else {
+            ToastMaker.makeErrorToast(this, "Choose school day,\n not weekend")
+        }
 
-        val returnIntent = Intent()
-        val retVal = SubstitutionEntity(0, dateForReturn.dayOfWeek.value,
-            binding.courseSubSpinner.selectedItem.toString(),
-            binding.lessonNumbSpinner.selectedItem.toString().toInt(),
-            dateForReturn
-        )
-        returnIntent.putExtra("subst", retVal)
-        setResult(Activity.RESULT_OK, returnIntent)
-        finish()
     }
 }
