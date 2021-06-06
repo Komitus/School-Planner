@@ -45,7 +45,7 @@ class PlanFragment : Fragment() {
         button.setOnClickListener { addSub()}
         planAdapter = PlanAdapter(context)
 
-        context.viewModelDatabase.readAllLessons.observe(this.viewLifecycleOwner, Observer {
+        context.viewModelDatabase.readAllLessons.observe(context, Observer {
             planAdapter.setMyDaysList(it)
         })
 
