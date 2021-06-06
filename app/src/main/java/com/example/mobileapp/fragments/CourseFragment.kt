@@ -47,6 +47,19 @@ class CourseFragment : Fragment() {
         addButton = rootView.findViewById<FloatingActionButton>(R.id.addCourseButton)
         addButton.setOnClickListener {
             val intent = Intent(context, AddCourseActivity::class.java)
+            val allCourses = context.viewModelDatabase.readAllCourses
+            val courseNames : ArrayList<String> = arrayListOf()
+            for (course in allCourses.value!!) {
+                courseNames.add(course.name)
+            }
+            intent.putExtra("courseNames", courseNames)
+            val allLessons = context.viewModelDatabase.readAllLessons
+            val allScheduleItems : ArrayList<ScheduleItem> = arrayListOf()
+            for (lesson in allLessons.value!!) {
+                val scheduleItem = ScheduleItem(context.converters.intToDay(lesson.dayOfWeek).toString(), lesson.lessonNumber.toString())
+                allScheduleItems.add(scheduleItem)
+            }
+            intent.putExtra("allLessons", allScheduleItems)
             startActivityForResult(intent, 1)
         }
 
@@ -70,9 +83,6 @@ class CourseFragment : Fragment() {
         if (requestCode == 1 && data != null) {
                 val name = data.getStringExtra("courseName")
                 val abb = name?.substring(0, 2)
-                if (name != null) {
-                    context.viewModelDatabase.deleteOld(name)
-                }
                 val teacher = data.getStringExtra("teacher")
                 val pluses = data.getIntExtra("pluses", 0)
                 if (teacher != null) {

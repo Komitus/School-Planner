@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -37,6 +38,7 @@ class AddCourseActivity : AppCompatActivity() {
     var myCourseLessons : List<ScheduleItem> = arrayListOf()
     lateinit var buttonThrash : FloatingActionButton
     private var scheduleItems : ArrayList<ScheduleItem> = arrayListOf()
+    private var allCourseNames : ArrayList<String> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,6 +96,7 @@ class AddCourseActivity : AppCompatActivity() {
             if (scheduleItems.contains(scheduleItem)) {
                 ToastMaker.makeErrorToast(this, "There cannot be 2 lessons at one time")
             } else if (myCourseLessons.contains(scheduleItem) && lessonsToDelete.contains(scheduleItem)) {
+                Log.d("am2021", "weszli my")
                 scheduleItems.add(scheduleItem)
                 lessonsToDelete.remove(scheduleItem)
                 scheduleAdapter.notifyDataSetChanged()
@@ -116,15 +119,16 @@ class AddCourseActivity : AppCompatActivity() {
             teacherEditText.setText(intent.getStringExtra("teacher").toString())
             scheduleItems.addAll(intent.getSerializableExtra("myLessons") as List<ScheduleItem>)
             scheduleAdapter.notifyDataSetChanged()
-            allLessons = intent.getSerializableExtra("allLessons") as List<ScheduleItem>
             myCourseLessons = intent.getSerializableExtra("myLessons") as List<ScheduleItem>
         }
+        allCourseNames = intent.getStringArrayListExtra("courseNames") as ArrayList<String>
+        allLessons = intent.getSerializableExtra("allLessons") as List<ScheduleItem>
 
     }
 
     fun addCourse(view: View) {
 
-        if  (courseName.text.isNotBlank()) {
+        if  (courseName.text.isNotBlank() && (!allCourseNames.contains(courseName.text.toString()) || courseName.text.toString()  == intent.getStringExtra("courseName").toString())) {
             val intent = Intent()
             intent.putExtra("courseName", courseName.text.toString())
             intent.putExtra("teacher", teacherEditText.text.toString())
@@ -134,6 +138,8 @@ class AddCourseActivity : AppCompatActivity() {
             intent.putExtra("scheduleToDelete", lessonsToDelete)
             setResult(Activity.RESULT_OK, intent)
             finish()
+        } else if (allCourseNames.contains(courseName.text.toString())){
+            ToastMaker.makeErrorToast(this, "Such a lesson already exists!")
         } else {
             ToastMaker.makeErrorToast(this, "Type course name!")
         }

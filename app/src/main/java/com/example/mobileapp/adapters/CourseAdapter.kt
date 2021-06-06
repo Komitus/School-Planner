@@ -48,6 +48,12 @@ class CourseAdapter(private val context: MainActivity) : RecyclerView.Adapter<Co
             intent.putExtra("allLessons", allScheduleItems)
             intent.putExtra("myLessons", myCourseScheduleItems)
             intent.putExtra("mode", 1)
+            val allCourses = context.viewModelDatabase.readAllCourses
+            val courseNames : ArrayList<String> = arrayListOf()
+            for (course in allCourses.value!!) {
+                courseNames.add(course.name)
+            }
+            intent.putExtra("courseNames", courseNames)
             context.startActivityForResult(intent, 123)
         }
         holder.itemView.setOnLongClickListener {
