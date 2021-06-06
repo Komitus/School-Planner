@@ -121,6 +121,13 @@ interface DatabseDAO {
     @Insert
     fun addSubstitution(substitutionEntity: SubstitutionEntity)
 
-    @Query("SELECT * FROM substitutions_table WHERE date = :date")
-    fun readSubstitution(date: String) : LiveData<List<SubstitutionEntity>>
+    @Query("SELECT * FROM substitutions_table WHERE date >= :startDate AND date <= :endDate")
+    fun readSubstitution(startDate: String, endDate: String) : LiveData<List<SubstitutionEntity>>
+
+    @Query("UPDATE pluses_table SET used = 0 WHERE courseName = :courseName")
+    fun deleteUsedPluses(courseName: String)
+
+    @Query("DELETE FROM substitutions_table WHERE id = (SELECT MAX(id) FROM substitutions_table)")
+    fun deleteLastSubstitution()
+
 }

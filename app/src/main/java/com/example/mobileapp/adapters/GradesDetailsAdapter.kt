@@ -1,6 +1,6 @@
 package com.example.mobileapp.adapters
 
-import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -42,8 +42,15 @@ class GradesDetailsAdapter(private val context: GradesDetailsActivity) : Recycle
         holder.itemView.setOnClickListener{
             context.editGrade(grades[position])
         }
-        if(selected.contains(position)) holder.itemView.setBackgroundColor(Color.DKGRAY);
-        else holder.itemView.setBackgroundColor(Color.WHITE)
+        if(selected.contains(position)) holder.itemView.setBackgroundColor(Color.rgb(179, 45, 0))
+        else {
+            val nightModeFlags: Int = context.resources.configuration.uiMode and
+                    Configuration.UI_MODE_NIGHT_MASK
+            when (nightModeFlags) {
+                Configuration.UI_MODE_NIGHT_YES -> holder.itemView.setBackgroundColor(Color.BLACK)
+                Configuration.UI_MODE_NIGHT_NO -> holder.itemView.setBackgroundColor(Color.WHITE)
+            }
+        }
     }
 
     override fun getItemCount(): Int {

@@ -20,6 +20,7 @@ import com.example.mobileapp.data.Entities.LessonEntity
 import com.example.mobileapp.data.Entities.PlanDay
 import com.example.mobileapp.data.Entities.SubstitutionEntity
 import com.example.mobileapp.data.dataBase.Converters
+import com.example.mobileapp.toasts.ToastMaker
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.time.DayOfWeek
 import java.time.LocalDate
@@ -43,6 +44,11 @@ class PlanFragment : Fragment() {
         val rootView = inflater.inflate(R.layout.fragment_plan, container, false)
         val button = rootView.findViewById<FloatingActionButton>(R.id.addSub)
         button.setOnClickListener { addSub()}
+        button.setOnLongClickListener {
+            context.viewModelDatabase.deleteLastSubstitution()
+            ToastMaker.makeSuccessToast(context, "Last substitution deleted")
+            return@setOnLongClickListener true
+        }
         planAdapter = PlanAdapter(context)
 
         context.viewModelDatabase.readAllLessons.observe(context, Observer {

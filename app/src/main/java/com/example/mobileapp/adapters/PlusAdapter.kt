@@ -27,6 +27,10 @@ class PlusAdapter(private val dbRef: PlannerDBViewModel) : RecyclerView.Adapter<
         holder.binding.deletePlus.setOnClickListener {
             dbRef.deleteOnePlus(pluses[position].courseName)
         }
+        holder.binding.deletePlus.setOnLongClickListener {
+            dbRef.deleteUsedPluses(pluses[position].courseName)
+            return@setOnLongClickListener true
+        }
     }
 
     override fun getItemCount(): Int {

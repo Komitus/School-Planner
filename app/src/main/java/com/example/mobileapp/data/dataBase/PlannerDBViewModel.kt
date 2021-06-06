@@ -80,6 +80,12 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    fun deleteUsedPluses(courseName: String){
+        viewModelScope.launch(Dispatchers.IO){
+            repo.deleteUsedPluses(courseName)
+        }
+    }
+
     fun deleteAllCourseInfo(courseName: String, courseId: Int) {
         viewModelScope.launch(Dispatchers.IO){
             repo.deleteCourseInfo(courseName, courseId)
@@ -110,6 +116,11 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
+    fun deleteLastSubstitution(){
+        viewModelScope.launch(Dispatchers.IO){
+            repo.deleteLastSubstitution()
+        }
+    }
 }
 
 @Suppress("UNCHECKED_CAST")

@@ -13,7 +13,9 @@ class DatabaseRepo(private val databaseDAO: DatabseDAO) {
     val readAllCourses: LiveData<List<CourseEntity>> = databaseDAO.readAllCourses()
     val readAllLessons: LiveData<List<LessonEntity>> = databaseDAO.readAllLessons()
     val readAllPluses: LiveData<List<PlusEntity>> = databaseDAO.readAllPluses()
-    val readSubstitutions: LiveData<List<SubstitutionEntity>> = databaseDAO.readSubstitution(LocalDate.now().toString())
+    val readSubstitutions: LiveData<List<SubstitutionEntity>> = databaseDAO.readSubstitution(
+        LocalDate.now().toString(), LocalDate.now().plusDays(7).toString()
+    )
 
     suspend fun addGrade(gradeEntity: GradeEntity){
         databaseDAO.addGrade(gradeEntity)
@@ -66,6 +68,14 @@ class DatabaseRepo(private val databaseDAO: DatabseDAO) {
 
     suspend fun addSubstitution(substitutionEntity: SubstitutionEntity){
         databaseDAO.addSubstitution(substitutionEntity)
+    }
+
+    fun deleteUsedPluses(courseName: String) {
+        databaseDAO.deleteUsedPluses(courseName)
+    }
+
+    fun deleteLastSubstitution(){
+        databaseDAO.deleteLastSubstitution()
     }
 
 }
