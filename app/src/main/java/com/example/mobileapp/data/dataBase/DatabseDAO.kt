@@ -5,6 +5,7 @@ import androidx.room.*
 import com.example.mobileapp.data.Entities.CourseEntity
 import com.example.mobileapp.data.Entities.GradeEntity
 import com.example.mobileapp.data.Entities.LessonEntity
+import com.example.mobileapp.data.Entities.PlusEntity
 import java.nio.file.Files.delete
 import java.time.LocalDate
 
@@ -18,11 +19,14 @@ interface DatabseDAO {
 
     @Insert
     fun addCourse(course: CourseEntity)
-    //"SELECT value FROM grades_table WHERE course = :courseName ORDER BY date DESC LIMIT 4 "
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun addPlusRow(plusEntity: PlusEntity)
+
     @Query("SELECT * FROM grades_table")
     fun readAllGrades() : LiveData<List<GradeEntity>>
 
-    @Query("SELECT * FROM grades_table WHERE course = :courseId")
+    @Query("SELECT * FROM grades_table WHERE course  = :courseId ORDER BY date desc")
     fun readGradesForCourse(courseId: Int) : LiveData<List<GradeEntity>>
 
     @Query("SELECT * FROM courses_table")
@@ -74,11 +78,47 @@ interface DatabseDAO {
     @Query("DELETE FROM grades_table WHERE course = :courseId")
     fun deleteGradesByCourse(courseId: Int)
 
+    @Query("DELETE FROM pluses_table WHERE courseName = :courseName")
+    fun deletePlusRow(courseName: String)
+
     @Transaction
     fun deleteAllCourseInfo(courseName: String, courseId: Int) {
         deleteLessonsByCourse(courseName)
         deleteGradesByCourse(courseId)
         deleteOld(courseName)
+        deletePlusRow(courseName)
     }
+
+    @Query("UPDATE pluses_table SET actual = actual + 1 WHERE courseName = :courseName")
+    fun updateActualPluses(courseName: String)
+
+    @Query("UPDATE pluses_table SET used = used + actual, actual = 0 WHERE courseName = :courseName")
+    fun updateUsedPluses(courseName: String)
+
+    @Query("SELECT actual FROM pluses_table WHERE courseName = :courseName")
+    fun selectActualPluses(courseName: String): Int
+
+    @Query("SELECT howMany FROM courses_table WHERE name = :courseName")
+    fun selectRequiredPluses(courseName: String): Int
+
+    @Query("SELECT id FROM courses_table WHERE name = :courseName")
+    fun selectCourseId(courseName: String): Int
+
+    @Transaction
+    fun addPlusWithCheck(courseName: String){
+        updateActualPluses(courseName)
+        val required = selectRequiredPluses(courseName)
+        val actual = selectActualPluses(courseName)
+        if(required == actual){
+            addGrade(GradeEntity(0, 5, "pluses", LocalDate.now(), selectCourseId(courseName)))
+            updateUsedPluses(courseName)
+        }
+    }
+
+    @Query("UPDATE pluses_table SET actual = actual - 1  WHERE courseName = :courseName AND actual > 0")
+    fun deleteOnePlus(courseName: String)
+
+    @Query("SELECT * FROM pluses_table")
+    fun readAllPluses() : LiveData<List<PlusEntity>>
 
 }

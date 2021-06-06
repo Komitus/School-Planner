@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.MainActivity
 import com.example.mobileapp.actitvities.GradesDetailsActivity
-import com.example.mobileapp.data.Constants
 import com.example.mobileapp.data.Entities.CourseEntity
 import com.example.mobileapp.data.Entities.GradeEntity
 import com.example.mobileapp.databinding.GradesForCourseRowBinding
+import kotlin.math.roundToInt
 
 class GradesAdapter(private val context: MainActivity) : RecyclerView.Adapter<GradesAdapter.ViewHolder>(){
 
@@ -23,9 +23,10 @@ class GradesAdapter(private val context: MainActivity) : RecyclerView.Adapter<Gr
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
-        holder.binding.courseAbbreviation.text = grades[position].first.abbreviation
+
         if(grades[position].second.isNotEmpty()){
             holder.binding.lastGrades.text = gradesToString(grades[position].second)
+            holder.binding.meanForCourse.text = calculateMean(grades[position].second)
         }
         holder.binding.courseGrades.text = grades[position].first.name
 
@@ -36,6 +37,15 @@ class GradesAdapter(private val context: MainActivity) : RecyclerView.Adapter<Gr
             context.startActivity(gradesDetailIntent)
         }
 
+    }
+
+    private fun calculateMean(gradesList: ArrayList<GradeEntity>): String {
+        var mean = 0f
+        for(i in 0..gradesList.lastIndex){
+            mean += gradesList[i].value!!
+        }
+        mean /= gradesList.size.toFloat()
+        return ((mean * 100).roundToInt().toFloat()/100f).toString()
     }
 
     override fun getItemCount(): Int {

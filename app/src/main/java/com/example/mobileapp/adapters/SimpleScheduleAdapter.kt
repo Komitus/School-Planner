@@ -7,7 +7,6 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.actitvities.AddCourseActivity
 import com.example.mobileapp.data.ScheduleItem
-import com.example.mobileapp.databinding.CourseItemBinding
 import com.example.mobileapp.databinding.ScheduleItemBinding
 
 class SimpleScheduleAdapter(private val scheduleItems : ArrayList<ScheduleItem>, val context : AddCourseActivity) : RecyclerView.Adapter<SimpleScheduleAdapter.ViewHolder>(){
@@ -41,12 +40,12 @@ class SimpleScheduleAdapter(private val scheduleItems : ArrayList<ScheduleItem>,
             return@setOnLongClickListener true
         }
 
-        if(selected.contains(position)) holder.itemView.setBackgroundColor(Color.DKGRAY);
-        else holder.itemView.setBackgroundColor(Color.GREEN)
+        if(selected.contains(position)) holder.itemView.setBackgroundColor(Color.rgb(179, 45, 0))
+        else holder.itemView.setBackgroundColor(Color.rgb(64, 128, 0))
     }
 
     fun getSelectedSchedules() : List<ScheduleItem> {
-        var toReturn : ArrayList<ScheduleItem> = arrayListOf()
+        val toReturn : ArrayList<ScheduleItem> = arrayListOf()
         for (index in selected) {
             toReturn.add(scheduleItems[index])
         }

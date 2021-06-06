@@ -2,10 +2,7 @@ package com.example.mobileapp.data.dataBase
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.mobileapp.data.Entities.CourseEntity
-import com.example.mobileapp.data.Entities.GradeEntity
-import com.example.mobileapp.data.Entities.LessonEntity
-import com.example.mobileapp.data.Entities.PlanDay
+import com.example.mobileapp.data.Entities.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -13,7 +10,8 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
 
     val readAllGrades:  LiveData<List<GradeEntity>>
     val readAllCourses: LiveData<List<CourseEntity>>
-    val readAllLessons : LiveData<List<LessonEntity>>
+    val readAllLessons: LiveData<List<LessonEntity>>
+    val readAllPluses: LiveData<List<PlusEntity>>
     private val repo: DatabaseRepo
 
     init{
@@ -22,7 +20,7 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
         readAllGrades = repo.readAllGrades
         readAllCourses = repo.readAllCourses
         readAllLessons = repo.readAllLessons
-
+        readAllPluses = repo.readAllPluses
     }
 
     fun addCourse(course: CourseEntity){
@@ -34,6 +32,12 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
     fun addGrade(grade: GradeEntity){
         viewModelScope.launch(Dispatchers.IO){
             repo.addGrade(grade)
+        }
+    }
+
+    fun addPlusRow(plusEntity: PlusEntity){
+        viewModelScope.launch(Dispatchers.IO){
+            repo.addPlusRow(plusEntity)
         }
     }
 
@@ -54,6 +58,23 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
     fun deleteOldLessons(day: Int, lesson: Int) {
         viewModelScope.launch(Dispatchers.IO){
             repo.deleteOldLessons(day, lesson)
+        }
+    }
+
+    fun deletePlusRow(courseName: String){
+        viewModelScope.launch(Dispatchers.IO){
+            repo.deletePlusRow(courseName)
+        }
+    }
+
+    fun addPlusWithCheck(courseName: String){
+        viewModelScope.launch(Dispatchers.IO){
+            repo.addPlusWithCheck(courseName)
+        }
+    }
+    fun deleteOnePlus(courseName: String){
+        viewModelScope.launch(Dispatchers.IO){
+            repo.deleteOnePlus(courseName)
         }
     }
 
@@ -80,6 +101,8 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
             repo.deleteLesson(day, lessonNumber)
         }
     }
+
+
 
 }
 

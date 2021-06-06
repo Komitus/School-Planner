@@ -51,7 +51,7 @@ class GradesDetailsAdapter(private val context: GradesDetailsActivity) : Recycle
     }
 
     fun setGrades(passedGrades: List<GradeEntity>){
-        grades = passedGrades.sortedByDescending { it.date }
+        grades = passedGrades//.sortedByDescending { it.date }
         notifyDataSetChanged()
     }
 
@@ -62,6 +62,7 @@ class GradesDetailsAdapter(private val context: GradesDetailsActivity) : Recycle
         }
         selected.clear()
         selected.trimToSize()
+        context.trashButton.isVisible = false
         return  toRet.toList()
     }
 

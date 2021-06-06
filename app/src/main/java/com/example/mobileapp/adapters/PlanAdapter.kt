@@ -34,14 +34,14 @@ class PlanAdapter(private val context : MainActivity) : RecyclerView.Adapter<Pla
         val day = daysList[position]
         holder.binding.dayTextView.text = day.day.toString()
 
-            holder.binding.firstLessonTextView.text = day.lessons[0]?.courseName ?: "----"
-            holder.binding.secondLessonTextView.text = day.lessons[1]?.courseName ?: "----"
-            holder.binding.thirdLessonTextView.text = day.lessons[2]?.courseName ?: "----"
-            holder.binding.fourthLessonTextView.text = day.lessons[3]?.courseName ?: "----"
-            holder.binding.fifthLessonTextView.text = day.lessons[4]?.courseName ?: "----"
-            holder.binding.sixthLessonTextView.text = day.lessons[5]?.courseName ?: "----"
-            holder.binding.seventhLessonTextView.text = day.lessons[6]?.courseName ?: "----"
-            holder.binding.eighthLessonTextView.text = day.lessons[7]?.courseName ?: "----"
+            holder.binding.firstLessonTextView.text = day.lessons[0]?.courseName ?: ""
+            holder.binding.secondLessonTextView.text = day.lessons[1]?.courseName ?: ""
+            holder.binding.thirdLessonTextView.text = day.lessons[2]?.courseName ?: ""
+            holder.binding.fourthLessonTextView.text = day.lessons[3]?.courseName ?: ""
+            holder.binding.fifthLessonTextView.text = day.lessons[4]?.courseName ?: ""
+            holder.binding.sixthLessonTextView.text = day.lessons[5]?.courseName ?: ""
+            holder.binding.seventhLessonTextView.text = day.lessons[6]?.courseName ?: ""
+            holder.binding.eighthLessonTextView.text = day.lessons[7]?.courseName ?: ""
     }
 
 

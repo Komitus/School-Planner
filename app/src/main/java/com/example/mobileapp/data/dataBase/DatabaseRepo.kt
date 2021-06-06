@@ -2,10 +2,7 @@ package com.example.mobileapp.data.dataBase
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.mobileapp.data.Entities.CourseEntity
-import com.example.mobileapp.data.Entities.GradeEntity
-import com.example.mobileapp.data.Entities.LessonEntity
-import com.example.mobileapp.data.Entities.PlanDay
+import com.example.mobileapp.data.Entities.*
 import java.text.FieldPosition
 import java.time.DayOfWeek
 
@@ -14,6 +11,7 @@ class DatabaseRepo(private val databaseDAO: DatabseDAO) {
     val readAllGrades: LiveData<List<GradeEntity>> = databaseDAO.readAllGrades()
     val readAllCourses: LiveData<List<CourseEntity>> = databaseDAO.readAllCourses()
     val readAllLessons: LiveData<List<LessonEntity>> = databaseDAO.readAllLessons()
+    val readAllPluses: LiveData<List<PlusEntity>> = databaseDAO.readAllPluses()
 
     suspend fun addGrade(gradeEntity: GradeEntity){
         databaseDAO.addGrade(gradeEntity)
@@ -21,6 +19,10 @@ class DatabaseRepo(private val databaseDAO: DatabseDAO) {
 
     suspend fun addCourse(courseEntity: CourseEntity){
         databaseDAO.addCourse(courseEntity)
+    }
+
+    suspend fun addPlusRow(plusEntity: PlusEntity){
+        databaseDAO.addPlusRow(plusEntity)
     }
 
     suspend fun addLesson(lessonEntity: LessonEntity) {
@@ -39,6 +41,16 @@ class DatabaseRepo(private val databaseDAO: DatabseDAO) {
         databaseDAO.deleteAllCourseInfo(courseName, courseId)
     }
 
+    suspend fun deletePlusRow(courseName: String) {
+        databaseDAO.deletePlusRow(courseName)
+    }
+    suspend fun addPlusWithCheck(courseName: String){
+        databaseDAO.addPlusWithCheck(courseName)
+    }
+
+    suspend fun deleteOnePlus(courseName: String){
+        databaseDAO.deleteOnePlus(courseName)
+    }
     fun updateLesson(course: String, day: Int, lessonNumber: Int) {
         databaseDAO.updateLesson(course, day, lessonNumber)
     }

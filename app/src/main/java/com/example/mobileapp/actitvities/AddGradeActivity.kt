@@ -13,7 +13,6 @@ import com.example.mobileapp.R
 import com.example.mobileapp.data.Entities.GradeEntity
 import com.example.mobileapp.databinding.ActivityAddGradeBinding
 import com.example.mobileapp.toasts.ToastMaker
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.time.LocalDate
 import java.util.*
 
@@ -53,7 +52,7 @@ class AddGradeActivity : AppCompatActivity() {
         binding.addGradeSpinner.onItemSelectedListener = object  : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 (parent!!.getChildAt(0) as TextView).setTextColor(Color.BLUE)
-                (parent!!.getChildAt(0) as TextView).textSize = 50f
+                (parent.getChildAt(0) as TextView).textSize = 50f
                 chosenGrade = position+1
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -62,7 +61,7 @@ class AddGradeActivity : AppCompatActivity() {
     }
 
     private fun initDatePicker(){
-        var dateSetListener : DatePickerDialog.OnDateSetListener = DatePickerDialog.OnDateSetListener {
+        val dateSetListener : DatePickerDialog.OnDateSetListener = DatePickerDialog.OnDateSetListener {
                 _, year, month, dayOfMonth ->
             val tmp =  LocalDate.of(year, month+1, dayOfMonth)
             dateForReturn = tmp
@@ -77,6 +76,7 @@ class AddGradeActivity : AppCompatActivity() {
         val style : Int = R.style.my_dialog_theme
 
         datePickerDialog = DatePickerDialog(this, style,dateSetListener, year, month, day)
+        datePickerDialog.datePicker.maxDate = System.currentTimeMillis()
     }
 
     fun openDatePicker(view: View) {

@@ -24,25 +24,23 @@ class PlanFragment : Fragment() {
     lateinit var planManager : RecyclerView.LayoutManager
     lateinit var planRecyclerView: RecyclerView
     private lateinit var context: MainActivity
-    private val converters: Converters = Converters()
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         this.context = context as MainActivity
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_plan, container, false)
+
         planAdapter = PlanAdapter(context)
-
-
-        context.viewModelDatabase.readAllLessons.observe(this.viewLifecycleOwner, Observer {
+        context.viewModelDatabase.readAllLessons.observe(context, Observer {
             planAdapter.setMyDaysList(it)
         })
+
         planManager = LinearLayoutManager(container?.context)
 
         planRecyclerView = rootView.findViewById<RecyclerView>(R.id.planRecyclerView)?.apply {
@@ -50,15 +48,9 @@ class PlanFragment : Fragment() {
             layoutManager = planManager
             adapter = planAdapter
         }!!
-        // Inflate the layout for this fragment
+
         return rootView
-
-
     }
-
-
-
-
 
 
 }

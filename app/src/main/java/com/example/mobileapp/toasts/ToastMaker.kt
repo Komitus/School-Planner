@@ -2,14 +2,13 @@ package com.example.mobileapp.toasts
 
 import android.app.Activity
 import androidx.core.content.res.ResourcesCompat
-import com.example.mobileapp.MainActivity
 import com.example.mobileapp.R
 import www.sanju.motiontoast.MotionToast
 
 object ToastMaker {
 
 
-    public fun makeSuccessToast(context : Activity, message : String) {
+    fun makeSuccessToast(context : Activity, message : String) {
         MotionToast.darkColorToast(context,
             "Success",
             message,
@@ -20,7 +19,7 @@ object ToastMaker {
     }
 
 
-    public fun makeErrorToast(context: Activity, message: String) {
+    fun makeErrorToast(context: Activity, message: String) {
         MotionToast.darkColorToast(context,
             "Error",
             message,
@@ -30,7 +29,7 @@ object ToastMaker {
             ResourcesCompat.getFont(context, R.font.helvetica_regular))
     }
 
-    public fun makeInfoToast(context: Activity, message: String) {
+    fun makeInfoToast(context: Activity, message: String) {
         MotionToast.darkColorToast(context,"Warning",
                 message,
                 MotionToast.TOAST_INFO,

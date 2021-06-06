@@ -76,13 +76,11 @@ class GradesDetailsActivity : AppCompatActivity() {
             } else {
                 viewModelDatabase.updateGrade(grade.id,grade.value!!, grade.category!!, grade.date!!)
             }
-
         }
     }
 
     fun removeSelected(view: View){
         viewModelDatabase.removeSelectedGrades(adapter.getSelectedGradesIds())
-        view.isVisible = false
     }
 
 

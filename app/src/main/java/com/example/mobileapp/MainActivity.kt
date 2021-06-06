@@ -10,6 +10,7 @@ import com.example.mobileapp.data.Constants
 import com.example.mobileapp.data.Entities.CourseEntity
 import com.example.mobileapp.data.Entities.GradeEntity
 import com.example.mobileapp.data.Entities.LessonEntity
+import com.example.mobileapp.data.Entities.PlusEntity
 import com.example.mobileapp.data.ScheduleItem
 import com.example.mobileapp.data.dataBase.Converters
 import com.example.mobileapp.data.dataBase.DBFactory
@@ -33,15 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModelDatabase = ViewModelProvider(this.viewModelStore,
             DBFactory(this.application)).get(PlannerDBViewModel::class.java)
-
-        /*
-        viewModelDatabase.addCourse(CourseEntity(0, "Polski", "JP"))
-        viewModelDatabase.addGrade(GradeEntity(0, 5, "kartkówka", LocalDate.now(), 1))
-        viewModelDatabase.addLesson(LessonEntity(1, "polak", 6))
-        viewModelDatabase.addLesson(LessonEntity(3, "polak", 7))
-        viewModelDatabase.addLesson(LessonEntity(3, "religia", 8))
-        viewModelDatabase.addLesson(LessonEntity(5, "majca", 2))
-        */
 
         val gradesFragment = GradesFragment()
         val plusFragment = PlusFragment()
@@ -79,6 +71,11 @@ class MainActivity : AppCompatActivity() {
                 val pluses = data.getIntExtra("pluses", 0)
                 if (teacher != null) {
                     viewModelDatabase.updateCourse(courseName, pluses, teacher)
+                    if(pluses > 0){
+                        viewModelDatabase.addPlusRow(PlusEntity(courseName, 0 ,0))
+                    } else {
+                        viewModelDatabase.deletePlusRow(courseName)
+                    }
                 }
 
                 val courseSchedules = data.getSerializableExtra("schedule")

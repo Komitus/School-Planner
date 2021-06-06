@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:text="CourseName"
         android:textAlignment="center"
+        android:textColor="#F8F5F5"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

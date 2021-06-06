@@ -18,6 +18,7 @@ import com.example.mobileapp.actitvities.AddCourseActivity
 import com.example.mobileapp.adapters.CourseAdapter
 import com.example.mobileapp.data.Entities.CourseEntity
 import com.example.mobileapp.data.Entities.LessonEntity
+import com.example.mobileapp.data.Entities.PlusEntity
 import com.example.mobileapp.data.ScheduleItem
 import com.example.mobileapp.data.dataBase.Converters
 import com.example.mobileapp.toasts.ToastMaker
@@ -87,6 +88,9 @@ class CourseFragment : Fragment() {
                 val pluses = data.getIntExtra("pluses", 0)
                 if (teacher != null) {
                     abb?.let { CourseEntity(0, name, it, pluses, teacher) }?.let { context.viewModelDatabase.addCourse(it) }
+                    if(pluses > 0 && name != null){
+                        context.viewModelDatabase.addPlusRow(PlusEntity(name, 0, 0))
+                    }
                 }
                 ToastMaker.makeSuccessToast(context, "Course is added")
 

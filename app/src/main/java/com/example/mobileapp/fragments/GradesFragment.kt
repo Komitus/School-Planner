@@ -16,7 +16,6 @@ import com.example.mobileapp.adapters.GradesAdapter
 class GradesFragment : Fragment() {
 
     private lateinit var gradesAdapter: GradesAdapter
-    private lateinit var gradesManager : RecyclerView.LayoutManager
     private lateinit var gradesRecyclerView: RecyclerView
     private lateinit var context: MainActivity
 
@@ -42,10 +41,9 @@ class GradesFragment : Fragment() {
             gradesAdapter.setList(it)
         })
 
-        gradesManager = LinearLayoutManager(container?.context)
         gradesRecyclerView = rootView.findViewById<RecyclerView>(R.id.gradeRecyclerView)?.apply {
             setHasFixedSize(true)
-            layoutManager = gradesManager
+            layoutManager = LinearLayoutManager(container?.context)
             adapter = gradesAdapter
         }!!
         return rootView
