@@ -12,6 +12,7 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
     val readAllCourses: LiveData<List<CourseEntity>>
     val readAllLessons: LiveData<List<LessonEntity>>
     val readAllPluses: LiveData<List<PlusEntity>>
+    val readSubstitutions: LiveData<List<SubstitutionEntity>>
     private val repo: DatabaseRepo
 
     init{
@@ -21,6 +22,7 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
         readAllCourses = repo.readAllCourses
         readAllLessons = repo.readAllLessons
         readAllPluses = repo.readAllPluses
+        readSubstitutions = repo.readSubstitutions
     }
 
     fun addCourse(course: CourseEntity){
@@ -102,7 +104,11 @@ class PlannerDBViewModel(application: Application) : AndroidViewModel(applicatio
         }
     }
 
-
+    fun addSubstitution(substitutionEntity: SubstitutionEntity){
+        viewModelScope.launch(Dispatchers.IO){
+            repo.addSubstitution(substitutionEntity)
+        }
+    }
 
 }
 

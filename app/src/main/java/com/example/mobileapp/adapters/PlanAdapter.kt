@@ -1,11 +1,13 @@
 package com.example.mobileapp.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobileapp.MainActivity
 import com.example.mobileapp.data.Entities.LessonEntity
 import com.example.mobileapp.data.Entities.PlanDay
+import com.example.mobileapp.data.Entities.SubstitutionEntity
 import com.example.mobileapp.data.dataBase.Converters
 import com.example.mobileapp.databinding.DayPlanItemBinding
 
@@ -14,13 +16,13 @@ class PlanAdapter(private val context : MainActivity) : RecyclerView.Adapter<Pla
     var daysList : Array<PlanDay>
     private val converters : Converters = Converters()
     init {
-            daysList = arrayOf(
-                PlanDay(converters.intToDay(1), Array(8) { null}),
-                PlanDay(converters.intToDay(2), Array(8) { null}),
-                PlanDay(converters.intToDay(3), Array(8) { null}),
-                PlanDay(converters.intToDay(4), Array(8) { null}),
-                PlanDay(converters.intToDay(5), Array(8) { null})
-            )
+        daysList = arrayOf(
+            PlanDay(converters.intToDay(1), Array(8) { null}),
+            PlanDay(converters.intToDay(2), Array(8) { null}),
+            PlanDay(converters.intToDay(3), Array(8) { null}),
+            PlanDay(converters.intToDay(4), Array(8) { null}),
+            PlanDay(converters.intToDay(5), Array(8) { null})
+        )
 
     }
 
@@ -34,14 +36,14 @@ class PlanAdapter(private val context : MainActivity) : RecyclerView.Adapter<Pla
         val day = daysList[position]
         holder.binding.dayTextView.text = day.day.toString()
 
-            holder.binding.firstLessonTextView.text = day.lessons[0]?.courseName ?: ""
-            holder.binding.secondLessonTextView.text = day.lessons[1]?.courseName ?: ""
-            holder.binding.thirdLessonTextView.text = day.lessons[2]?.courseName ?: ""
-            holder.binding.fourthLessonTextView.text = day.lessons[3]?.courseName ?: ""
-            holder.binding.fifthLessonTextView.text = day.lessons[4]?.courseName ?: ""
-            holder.binding.sixthLessonTextView.text = day.lessons[5]?.courseName ?: ""
-            holder.binding.seventhLessonTextView.text = day.lessons[6]?.courseName ?: ""
-            holder.binding.eighthLessonTextView.text = day.lessons[7]?.courseName ?: ""
+        holder.binding.firstLessonTextView.text = day.lessons[0]?.courseName ?: ""
+        holder.binding.secondLessonTextView.text = day.lessons[1]?.courseName ?: ""
+        holder.binding.thirdLessonTextView.text = day.lessons[2]?.courseName ?: ""
+        holder.binding.fourthLessonTextView.text = day.lessons[3]?.courseName ?: ""
+        holder.binding.fifthLessonTextView.text = day.lessons[4]?.courseName ?: ""
+        holder.binding.sixthLessonTextView.text = day.lessons[5]?.courseName ?: ""
+        holder.binding.seventhLessonTextView.text = day.lessons[6]?.courseName ?: ""
+        holder.binding.eighthLessonTextView.text = day.lessons[7]?.courseName ?: ""
     }
 
 
@@ -53,9 +55,16 @@ class PlanAdapter(private val context : MainActivity) : RecyclerView.Adapter<Pla
         for (lesson in list) {
             daysList[lesson.dayOfWeek-1].lessons[lesson.lessonNumber-1] = lesson
         }
-
-
         notifyDataSetChanged()
+    }
+
+    fun setSubstitutions(list: List<SubstitutionEntity>){
+        for(item in list){
+
+            daysList[item.dayOfWeek-1].lessons[item.lessonNumber-1] =
+                LessonEntity(item.dayOfWeek, "****${item.courseName}****", item.lessonNumber)
+            notifyItemChanged(item.dayOfWeek - 1)
+        }
     }
 
 }

@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.mobileapp.data.Entities.*
 
-@Database(entities = [GradeEntity::class, CourseEntity::class, LessonEntity::class, PlusEntity::class], version = 1, exportSchema = false)
+@Database(entities = [GradeEntity::class, CourseEntity::class, LessonEntity::class, PlusEntity::class, SubstitutionEntity::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class PlannerDatabase : RoomDatabase() {
 

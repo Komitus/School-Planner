@@ -2,10 +2,7 @@ package com.example.mobileapp.data.dataBase
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.mobileapp.data.Entities.CourseEntity
-import com.example.mobileapp.data.Entities.GradeEntity
-import com.example.mobileapp.data.Entities.LessonEntity
-import com.example.mobileapp.data.Entities.PlusEntity
+import com.example.mobileapp.data.Entities.*
 import java.nio.file.Files.delete
 import java.time.LocalDate
 
@@ -56,7 +53,7 @@ interface DatabseDAO {
     @Query("UPDATE lessons_table SET courseName = :course WHERE dayOfWeek = :day AND lessonNumber = :lessonNumber")
     fun updateLesson(course: String, day: Int, lessonNumber: Int)
 
-    @Query("UPDATE courses_table SET howMany = :pluses AND teacher = :teacher WHERE name = :name")
+    @Query("UPDATE courses_table SET howMany = :pluses, teacher = :teacher WHERE name = :name")
     fun updateCourse(name: String, pluses: Int, teacher: String)
 
     @Query("DELETE FROM lessons_table WHERE lessonNumber = :lessonNumber AND dayOfWeek = :day")
@@ -121,4 +118,9 @@ interface DatabseDAO {
     @Query("SELECT * FROM pluses_table")
     fun readAllPluses() : LiveData<List<PlusEntity>>
 
+    @Insert
+    fun addSubstitution(substitutionEntity: SubstitutionEntity)
+
+    @Query("SELECT * FROM substitutions_table WHERE date = :date")
+    fun readSubstitution(date: String) : LiveData<List<SubstitutionEntity>>
 }

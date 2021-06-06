@@ -6,4 +6,8 @@ import java.io.Serializable
 import java.time.DayOfWeek
 
 @Entity(tableName = "lessons_table", primaryKeys = ["dayOfWeek", "lessonNumber"])
-data class LessonEntity(val dayOfWeek: Int, val courseName: String = "----", val lessonNumber: Int)
+data class LessonEntity(
+    val dayOfWeek: Int,
+    val courseName: String,
+    val lessonNumber: Int
+    )

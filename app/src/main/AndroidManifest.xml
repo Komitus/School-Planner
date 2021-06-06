@@ -9,10 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileApp">
-        <activity android:name=".actitvities.AddGradeActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".actitvities.AddCourseActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".actitvities.AddSubActivity"></activity>
+        <activity
+            android:name=".actitvities.AddGradeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".actitvities.AddCourseActivity"
+            android:screenOrientation="portrait" />
         <activity android:name=".actitvities.GradesDetailsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

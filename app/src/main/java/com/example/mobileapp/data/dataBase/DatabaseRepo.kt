@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.mobileapp.data.Entities.*
 import java.text.FieldPosition
 import java.time.DayOfWeek
+import java.time.LocalDate
 
 class DatabaseRepo(private val databaseDAO: DatabseDAO) {
 
@@ -12,6 +13,7 @@ class DatabaseRepo(private val databaseDAO: DatabseDAO) {
     val readAllCourses: LiveData<List<CourseEntity>> = databaseDAO.readAllCourses()
     val readAllLessons: LiveData<List<LessonEntity>> = databaseDAO.readAllLessons()
     val readAllPluses: LiveData<List<PlusEntity>> = databaseDAO.readAllPluses()
+    val readSubstitutions: LiveData<List<SubstitutionEntity>> = databaseDAO.readSubstitution(LocalDate.now().toString())
 
     suspend fun addGrade(gradeEntity: GradeEntity){
         databaseDAO.addGrade(gradeEntity)
@@ -62,7 +64,8 @@ class DatabaseRepo(private val databaseDAO: DatabseDAO) {
         databaseDAO.deleteLesson(lessonNumber, day)
     }
 
-
-
+    suspend fun addSubstitution(substitutionEntity: SubstitutionEntity){
+        databaseDAO.addSubstitution(substitutionEntity)
+    }
 
 }
